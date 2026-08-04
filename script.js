@@ -1,4 +1,4 @@
-alert("script.js wird geladen");
+alert("CleanWays Script geladen");
 
 const map = L.map('map').setView([51.1657, 10.4515], 6);
 
