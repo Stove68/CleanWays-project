@@ -1,1 +1,1 @@
-console.log("CleanWays gestartet");
+console.log("CleanWays erfolgreich gestartet");
