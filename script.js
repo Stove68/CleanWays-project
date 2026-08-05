@@ -4,35 +4,51 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-/* Beispielroute */
+let tracking = false;
+let watchId = null;
+let routePoints = [];
+let routeLine = null;
 
-const route = [
-    [51.2277, 6.7735],
-    [51.2285, 6.7750],
-    [51.2295, 6.7770],
-    [51.2305, 6.7790]
-];
+const status = document.getElementById("status");
 
-L.polyline(route, {
-    color: 'green',
-    weight: 8
-}).addTo(map);
+document.getElementById("startBtn").addEventListener("click", () => {
 
-/* Aktueller Standort */
+    tracking = true;
+    routePoints = [];
 
-if (navigator.geolocation) {
+    status.innerText = "🟢 Sammelaktion läuft";
 
-    navigator.geolocation.getCurrentPosition(function(position) {
+    watchId = navigator.geolocation.watchPosition((position) => {
 
         const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
+        const lng = position.coords.longitude;
 
-        map.setView([lat, lon], 15);
+        routePoints.push([lat, lng]);
 
-        L.marker([lat, lon])
-            .addTo(map)
-            .bindPopup("Mein aktueller Standort")
+        if (routeLine) {
+            map.removeLayer(routeLine);
+        }
+
+        routeLine = L.polyline(routePoints, {
+            color: "green",
+            weight: 6
+        }).addTo(map);
+
+        map.setView([lat, lng], 17);
 
     });
 
-}
+});
+
+document.getElementById("stopBtn").addEventListener("click", () => {
+
+    tracking = false;
+
+    if (watchId) {
+        navigator.geolocation.clearWatch(watchId);
+    }
+
+    status.innerText =
+        "✅ Sammelaktion beendet | GPS-Punkte: "
+        + routePoints.length;
+});
