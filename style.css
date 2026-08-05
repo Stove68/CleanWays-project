@@ -61,3 +61,10 @@ button {
     background-color: #c0392b;
     color: white;
 }
+#status {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f8f8f8;
+    border-radius: 6px;
+    font-weight: bold;
+}
