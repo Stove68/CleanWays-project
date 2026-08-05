@@ -39,3 +39,25 @@ section {
 #legend h3 {
     margin-top: 0;
 }
+#controls {
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 12px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#startBtn {
+    background-color: #2e8b57;
+    color: white;
+}
+
+#stopBtn {
+    background-color: #c0392b;
+    color: white;
+}
