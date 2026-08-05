@@ -67,3 +67,11 @@ document.getElementById("stopBtn").addEventListener("click", () => {
     status.innerText =
         "✅ Sammelaktion beendet";
 });
+savedRoutes.forEach(route => {
+
+    L.polyline(route.points, {
+        color: "green",
+        weight: 6
+    }).addTo(map);
+
+});
