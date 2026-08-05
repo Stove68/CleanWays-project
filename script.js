@@ -32,7 +32,6 @@ if (navigator.geolocation) {
         L.marker([lat, lon])
             .addTo(map)
             .bindPopup("Mein aktueller Standort")
-            .openPopup();
 
     });
 
