@@ -8,10 +8,13 @@ let tracking = false;
 let watchId = null;
 let routePoints = [];
 let routeLine = null;
+let savedRoutes =
+    JSON.parse(localStorage.getItem( || [];
 
 const status = document.getElementById("status");
 
-document.getElementById("startBtn").addEventListener("click", () => {
+document.getElementById("routeCount").innerText =
+    "Sammelaktionen: " + savedRoutes.length;
 
     tracking = true;
     routePoints = [];
@@ -48,7 +51,19 @@ document.getElementById("stopBtn").addEventListener("click", () => {
         navigator.geolocation.clearWatch(watchId);
     }
 
+    savedRoutes.push({
+        date: new Date().toISOString(),
+        points: routePoints
+    });
+
+    localStorage.setItem(
+        "cleanwaysRoutes",
+        JSON.stringify(savedRoutes)
+    );
+
+    document.getElementById("routeCount").innerText =
+        "Sammelaktionen: " + savedRoutes.length;
+
     status.innerText =
-        "✅ Sammelaktion beendet | GPS-Punkte: "
-        + routePoints.length;
+        "✅ Sammelaktion beendet";
 });
