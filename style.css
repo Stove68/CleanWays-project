@@ -68,3 +68,13 @@ button {
     border-radius: 6px;
     font-weight: bold;
 }
+#stats {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+}
+
+#stats h3 {
+    margin-top: 0;
+}
