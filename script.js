@@ -8,13 +8,31 @@ let tracking = false;
 let watchId = null;
 let routePoints = [];
 let routeLine = null;
+
 let savedRoutes =
-    JSON.parse(localStorage.getItem( || [];
+    JSON.parse(
+        localStorage.getItem("cleanwaysRoutes")
+    ) || [];
 
 const status = document.getElementById("status");
 
 document.getElementById("routeCount").innerText =
     "Sammelaktionen: " + savedRoutes.length;
+
+/* Gespeicherte Routen laden */
+
+savedRoutes.forEach(route => {
+
+    L.polyline(route.points, {
+        color: "green",
+        weight: 6
+    }).addTo(map);
+
+});
+
+/* Start */
+
+document.getElementById("startBtn").addEventListener("click", () => {
 
     tracking = true;
     routePoints = [];
@@ -43,6 +61,8 @@ document.getElementById("routeCount").innerText =
 
 });
 
+/* Stop */
+
 document.getElementById("stopBtn").addEventListener("click", () => {
 
     tracking = false;
@@ -66,12 +86,5 @@ document.getElementById("stopBtn").addEventListener("click", () => {
 
     status.innerText =
         "✅ Sammelaktion beendet";
-});
-savedRoutes.forEach(route => {
-
-    L.polyline(route.points, {
-        color: "green",
-        weight: 6
-    }).addTo(map);
 
 });
