@@ -4,37 +4,29 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-let tracking = false;
 let watchId = null;
 let routePoints = [];
 let routeLine = null;
-
-let savedRoutes =
-    JSON.parse(
-        localStorage.getItem("cleanwaysRoutes")
-    ) || [];
+let actionCounter = 0;
 
 const status = document.getElementById("status");
+const routeCount = document.getElementById("routeCount");
 
-document.getElementById("routeCount").innerText =
-    "Sammelaktionen: " + savedRoutes.length;
+navigator.geolocation.getCurrentPosition((position) => {
 
-/* Gespeicherte Routen laden */
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
 
-savedRoutes.forEach(route => {
+    map.setView([lat, lng], 16);
 
-    L.polyline(route.points, {
-        color: "green",
-        weight: 6
-    }).addTo(map);
+    L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup("Mein aktueller Standort");
 
 });
 
-/* Start */
-
 document.getElementById("startBtn").addEventListener("click", () => {
 
-    tracking = true;
     routePoints = [];
 
     status.innerText = "🟢 Sammelaktion läuft";
@@ -55,34 +47,20 @@ document.getElementById("startBtn").addEventListener("click", () => {
             weight: 6
         }).addTo(map);
 
-        map.setView([lat, lng], 17);
-
     });
 
 });
 
-/* Stop */
-
 document.getElementById("stopBtn").addEventListener("click", () => {
-
-    tracking = false;
 
     if (watchId) {
         navigator.geolocation.clearWatch(watchId);
     }
 
-    savedRoutes.push({
-        date: new Date().toISOString(),
-        points: routePoints
-    });
+    actionCounter++;
 
-    localStorage.setItem(
-        "cleanwaysRoutes",
-        JSON.stringify(savedRoutes)
-    );
-
-    document.getElementById("routeCount").innerText =
-        "Sammelaktionen: " + savedRoutes.length;
+    routeCount.innerText =
+        "Sammelaktionen: " + actionCounter;
 
     status.innerText =
         "✅ Sammelaktion beendet";
