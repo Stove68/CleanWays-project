@@ -63,6 +63,7 @@ document.getElementById("stopBtn").addEventListener("click", () => {
         "Sammelaktionen: " + actionCounter;
 
     status.innerText =
-        "✅ Sammelaktion beendet";
+        "✅ Sammelaktion beendet | GPS-Punkte: "
+        + routePoints.length;
 
 });
