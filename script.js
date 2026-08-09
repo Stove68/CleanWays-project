@@ -1,12 +1,13 @@
-const map = L.map('map').setView([51.1657, 10.4515], 6);
+const map = L.map("map").setView([51.1657, 10.4515], 6);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors"
 }).addTo(map);
 
 let watchId = null;
 let routePoints = [];
 let routeLine = null;
+
 let actionCounter = 0;
 let totalDistance = 0;
 
@@ -28,11 +29,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
 
-    const c =
-        2 * Math.atan2(
-            Math.sqrt(a),
-            Math.sqrt(1 - a)
-        );
+    const c = 2 * Math.atan2(
+        Math.sqrt(a),
+        Math.sqrt(1 - a)
+    );
 
     return R * c;
 }
@@ -79,28 +79,30 @@ document.getElementById("startBtn").addEventListener("click", () => {
         const lng = position.coords.longitude;
         const accuracy = position.coords.accuracy;
 
-if (accuracy > 20) {
-    return;
-}
+        // Ungenaue GPS-Messungen ignorieren
+        if (accuracy > 20) {
+            return;
+        }
 
-       if (routePoints.length > 0) {
+        // GPS-Ausreißer filtern
+        if (routePoints.length > 0) {
 
-    const last = routePoints[routePoints.length - 1];
+            const last = routePoints[routePoints.length - 1];
 
-    const jumpDistance = calculateDistance(
-        last[0],
-        last[1],
-        lat,
-        lng
-    );
+            const jumpDistance = calculateDistance(
+                last[0],
+                last[1],
+                lat,
+                lng
+            );
 
-    // Sprünge über 30 Meter ignorieren
-    if (jumpDistance > 0.05) {
-        return;
-    }
-}
+            // Sprünge über 50 Meter ignorieren
+            if (jumpDistance > 0.05) {
+                return;
+            }
+        }
 
-routePoints.push([lat, lng]);
+        routePoints.push([lat, lng]);
 
         if (routeLine) {
             map.removeLayer(routeLine);
@@ -112,12 +114,11 @@ routePoints.push([lat, lng]);
         }).addTo(map);
 
     });
-
 });
 
 document.getElementById("stopBtn").addEventListener("click", () => {
 
-    if (watchId) {
+    if (watchId !== null) {
         navigator.geolocation.clearWatch(watchId);
     }
 
@@ -131,11 +132,12 @@ document.getElementById("stopBtn").addEventListener("click", () => {
         "Sammelaktionen: " + actionCounter;
 
     distanceCount.innerText =
-        "📏 Strecke: " + totalDistance.toFixed(2) + " km";
+        "📏 Strecke: " +
+        totalDistance.toFixed(2) +
+        " km";
 
     status.innerText =
         "✅ Sammelaktion beendet | " +
         routeDistance.toFixed(2) +
         " km gesammelt";
-
 });
