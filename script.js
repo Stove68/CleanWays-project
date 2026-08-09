@@ -77,8 +77,30 @@ document.getElementById("startBtn").addEventListener("click", () => {
 
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
+        const accuracy = position.coords.accuracy;
 
-        routePoints.push([lat, lng]);
+if (accuracy > 20) {
+    return;
+}
+
+       if (routePoints.length > 0) {
+
+    const last = routePoints[routePoints.length - 1];
+
+    const jumpDistance = calculateDistance(
+        last[0],
+        last[1],
+        lat,
+        lng
+    );
+
+    // Sprünge über 30 Meter ignorieren
+    if (jumpDistance > 0.05) {
+        return;
+    }
+}
+
+routePoints.push([lat, lng]);
 
         if (routeLine) {
             map.removeLayer(routeLine);
