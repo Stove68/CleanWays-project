@@ -9,6 +9,7 @@ L.marker([51.1657, 10.4515]).addTo(map);
 let watchId = null;
 let routePoints = [];
 let routeLine = null
+
 alert("Script geladen")
 
 document.getElementById("startBtn").addEventListener("click", () => {
