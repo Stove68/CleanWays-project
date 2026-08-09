@@ -18,8 +18,14 @@ document.getElementById("startBtn").addEventListener("click", () => {
 
         routePoints.push([lat, lng]);
 
-        console.log(routePoints);
+if (routeLine) {
+    map.removeLayer(routeLine);
+}
 
+routeLine = L.polyline(routePoints, {
+    color: "green",
+    weight: 6
+}).addTo(map);
     });
 
 });
