@@ -47,7 +47,8 @@ button {
 #status {
     padding: 12px;
     margin-bottom: 15px;
-    background: white;
+    background: #eaf7ee;
+    border-left: 5px solid #2e8b57;
     border-radius: 10px;
 }
 
