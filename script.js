@@ -8,9 +8,51 @@ let watchId = null;
 let routePoints = [];
 let routeLine = null;
 let actionCounter = 0;
+let totalDistance = 0;
 
 const status = document.getElementById("status");
 const routeCount = document.getElementById("routeCount");
+const distanceCount = document.getElementById("distanceCount");
+
+function calculateDistance(lat1, lon1, lat2, lon2) {
+
+    const R = 6371;
+
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1 * Math.PI / 180) *
+        Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+    const c =
+        2 * Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1 - a)
+        );
+
+    return R * c;
+}
+
+function getRouteLength(points) {
+
+    let distance = 0;
+
+    for (let i = 1; i < points.length; i++) {
+
+        distance += calculateDistance(
+            points[i - 1][0],
+            points[i - 1][1],
+            points[i][0],
+            points[i][1]
+        );
+    }
+
+    return distance;
+}
 
 navigator.geolocation.getCurrentPosition((position) => {
 
@@ -59,11 +101,19 @@ document.getElementById("stopBtn").addEventListener("click", () => {
 
     actionCounter++;
 
+    const routeDistance = getRouteLength(routePoints);
+
+    totalDistance += routeDistance;
+
     routeCount.innerText =
         "Sammelaktionen: " + actionCounter;
 
+    distanceCount.innerText =
+        "📏 Strecke: " + totalDistance.toFixed(2) + " km";
+
     status.innerText =
-        "✅ Sammelaktion beendet | GPS-Punkte: "
-        + routePoints.length;
+        "✅ Sammelaktion beendet | " +
+        routeDistance.toFixed(2) +
+        " km gesammelt";
 
 });
