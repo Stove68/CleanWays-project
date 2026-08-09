@@ -70,3 +70,8 @@ button {
     background: #f8f8f8;
     border-radius: 10px;
 }
+#stats p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 8px 0;
+}
