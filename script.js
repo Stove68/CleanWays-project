@@ -1,8 +1,10 @@
-const map = L.map(setView([51.1657, 10.4515], 6);
+const map = L.map("map").setView([51.1657, 10.4515], 6);
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "&copy; OpenStreetMap contributors"
 }).addTo(map);
+
+L.marker([51.1657, 10.4515]).addTo(map);
 
 let watchId = null;
 let routePoints = [];
