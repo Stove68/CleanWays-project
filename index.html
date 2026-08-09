@@ -1,61 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanWays</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CleanWays</title>
 
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
 </head>
 
 <body>
 
 <header>
-    <h1>🌍 CleanWays</h1>
-    <p>Gemeinsam saubere Wege sichtbar machen</p>
+<h1>🌍 CleanWays</h1>
+<p>Gemeinsam saubere Wege sichtbar machen</p>
 </header>
 
 <main>
 
-    <section>
-        <h2>Willkommen</h2>
-        <p>
-            Dokumentiere deine Müllsammelaktionen und mache dein Engagement sichtbar.
-        </p>
-    </section>
+<section>
+<h2>Willkommen</h2>
+<p>Dokumentiere deine Müllsammelaktionen und mache dein Engagement sichtbar.</p>
+</section>
 
-    <div id="controls">
-        <button id="startBtn">🟢 Sammelaktion starten</button>
-        <button id="stopBtn">🔴 Sammelaktion beenden</button>
-    </div>
+<div id="controls">
+<button id="startBtn">🟢 Sammelaktion starten</button>
+<button id="stopBtn">🔴 Sammelaktion beenden</button>
+</div>
 
-    <div id="status">
-        Bereit für eine Sammelaktion
-    </div>
+<div id="status">
+Bereit für eine Sammelaktion
+</div>
 
-    <div id="stats">
-        <h3>Statistik</h3>
+<div id="stats">
+<h3>Statistik</h3>
 
-        <p id="routeCount">
-            Sammelaktionen: 0
-        </p>
+<p id="routeCount">Sammelaktionen: 0</p>
 
-        <p id="distanceCount">
-            Strecke: 0 km
-        </p>
-    </div>
+<p id="distanceCount">📏 Strecke: 0 km</p>
+</div>
 
-    <section>
-        <h2>Kartenbereich</h2>
+<section>
+<h2>Kartenbereich</h2>
 
-        <div id="map"></div>
+<div id="map"></div>
 
-        <div id="legend">
-            <h3>Legende</h3>
+<div id="legend">
+<h3>Legende</h3>
 
-            <p>🟢 Gereinigt innerhalb
+<p>🟢 Gereinigt innerhalb der letzten 6 Monate</p>
+<p>🟡 Gereinigt innerhalb von 6 bis 12 Monaten</p>
+<p>⚪ Gereinigt vor mehr als 12 Monaten</p>
+</div>
+
+</section>
+
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
