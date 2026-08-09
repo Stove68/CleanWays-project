@@ -11,21 +11,20 @@ let routePoints = [];
 
 document.getElementById("startBtn").addEventListener("click", () => {
 
-    watchId = navigator.geolocation.watchPosition((position) => {
+   watchId = navigator.geolocation.watchPosition((position) => {
 
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
 
-        routePoints.push([lat, lng]);
+    routePoints.push([lat, lng]);
 
-if (routeLine) {
-    map.removeLayer(routeLine);
-}
+    if (routeLine) {
+        map.removeLayer(routeLine);
+    }
 
-routeLine = L.polyline(routePoints, {
-    color: "green",
-    weight: 6
-}).addTo(map);
-    });
+    routeLine = L.polyline(routePoints, {
+        color: "green",
+        weight: 6
+    }).addTo(map);
 
 });
